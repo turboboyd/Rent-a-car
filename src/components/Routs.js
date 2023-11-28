@@ -1,72 +1,19 @@
-import {
-  WELCOME_PAGE_ROUTE,
-  DIARY_ROUTE,
-  PRODUCT_ROUTE,
-  EXERCISES_ROUTE,
-  PROFILE_ROUTE,
-  SIGN_UP_ROUTE,
-  SIGN_IN_ROUTE,
-  VERIFY_ROUTE,
-  PASSWORD_ROUTE,
-} from './utils/const';
+import { HomePage, CatalogPage, FavoritesPage } from 'page';
+import { HOME_ROUTE, CATALOG_ROUTE, FAVORITES_ROUTE } from 'utils/const';
 
-import {
-  WelcomePage,
-  DiaryPage,
-  ExercisesPage,
-  ProductsPage,
-  ProfilePage,
-  VerifyPage,
-  AuthPage,
-  PasswordPage,
-} from './pages';
-
-export const authRoutes = [
+const publicRoutes = [
   {
-    path: DIARY_ROUTE,
-    Element: <DiaryPage />,
+    path: HOME_ROUTE,
+    Element: <HomePage />,
   },
   {
-    path: PROFILE_ROUTE,
-    Element: <ProfilePage />,
+    path: CATALOG_ROUTE,
+    Element: <CatalogPage />,
   },
   {
-    path: PRODUCT_ROUTE,
-    Element: <ProductsPage />,
-  },
-  {
-    path: EXERCISES_ROUTE,
-    Element: <ExercisesPage />,
-  },
-  {
-    path: EXERCISES_ROUTE + '/:id',
-    Element: <ExercisesPage />,
+    path: FAVORITES_ROUTE,
+    Element: <FavoritesPage />,
   },
 ];
 
-export const publicRoutes = [
-  {
-    path: WELCOME_PAGE_ROUTE,
-    Element: <WelcomePage />,
-  },
-  {
-    path: SIGN_UP_ROUTE,
-    Element: <AuthPage />,
-  },
-  {
-    path: SIGN_IN_ROUTE,
-    Element: <AuthPage />,
-  },
-  {
-    path: VERIFY_ROUTE + '/:id',
-    Element: <VerifyPage />,
-  },
-  {
-    path: PASSWORD_ROUTE,
-    Element: <PasswordPage />,
-  },
-  {
-    path: PASSWORD_ROUTE + '/:id',
-    Element: <PasswordPage />,
-  },
-];
+export default publicRoutes;
