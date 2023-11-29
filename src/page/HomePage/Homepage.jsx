@@ -1,5 +1,3 @@
-
-import ItemProduct from 'components/ItemProduct/ItemProduct';
 import { Link } from 'react-router-dom';
 import { CATALOG_ROUTE } from 'utils/const';
 

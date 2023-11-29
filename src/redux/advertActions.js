@@ -25,7 +25,7 @@ export const getAdvertsFail = error => ({
 });
 
 export const fetchAdverts = (page = 1, pageSize = 12) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(getAdvertsPending());
     try {
       const response = await fetchAdvertsApi(page, pageSize);
@@ -50,16 +50,16 @@ export const fetchAdverts = (page = 1, pageSize = 12) => {
 
 
 
-function getUniqueAdverts(oldAdverts, newAdverts) {
-  // Объединить старые и новые объявления
-  const allAdverts = [...oldAdverts, ...newAdverts];
+// function getUniqueAdverts(oldAdverts, newAdverts) {
+//   // Объединить старые и новые объявления
+//   const allAdverts = [...oldAdverts, ...newAdverts];
 
-  // Удалить дубликаты
-  const uniqueAdverts = Array.from(new Set(allAdverts.map(a => a.id))).map(
-    id => {
-      return allAdverts.find(a => a.id === id);
-    }
-  );
+//   // Удалить дубликаты
+//   const uniqueAdverts = Array.from(new Set(allAdverts.map(a => a.id))).map(
+//     id => {
+//       return allAdverts.find(a => a.id === id);
+//     }
+//   );
 
-  return uniqueAdverts;
-}
+//   return uniqueAdverts;
+// }
