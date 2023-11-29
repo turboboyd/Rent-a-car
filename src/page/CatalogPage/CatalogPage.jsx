@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 
 
 const CatalogPage = () => { 
-    <div>sfsafsaf</div>
+
+
 }
 
 export default CatalogPage;
