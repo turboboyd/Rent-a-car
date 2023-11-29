@@ -1,5 +1,7 @@
 
 import ItemProduct from 'components/ItemProduct/ItemProduct';
+import { Link } from 'react-router-dom';
+import { CATALOG_ROUTE } from 'utils/const';
 
 
 const Homepage = () => {
@@ -7,7 +9,8 @@ const Homepage = () => {
 
   return (
     <div>
-      <ItemProduct/>
+
+      <Link to={CATALOG_ROUTE}>sssssssssssssss</Link>
     </div>
   );
 };

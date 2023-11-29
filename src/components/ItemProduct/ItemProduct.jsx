@@ -1,21 +1,31 @@
 import React from 'react';
-import { fetchAdverts, getAllAdverts } from 'redux/advertOperation';
+import { fetchAdverts } from 'redux/advertActions';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import CardProduct from 'components/CardProduct/CardProduct';
 import css from './ItemProduct.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { CATALOG_ROUTE } from 'utils/const';
+import { useDispatch } from 'react-redux';
+
 import useAdvert from 'hooks/useAdvert';
+import BtnLoadMore from 'components/Button/BtnLoadMore';
 
 function ItemProduct() {
- const [page, setPage] = useState(1);
- const dispatch = useDispatch();
- const { adverts } = useAdvert();
- console.log('adverts: ', adverts);
+  const [page, setPage] = useState(1);
+  const [showBtn, setShowBtn] = useState(true);
+  const dispatch = useDispatch();
+  const { adverts } = useAdvert();
+
   useEffect(() => {
-    dispatch(fetchAdverts(page));
+    const fetch = async () => {
+      const responseLength = await dispatch(fetchAdverts(page));
+
+      // Если длина ответа меньше 12, скрываем кнопку "Загрузить еще"
+      if (responseLength < 12) {
+        setShowBtn(false);
+      }
+    };
+
+    fetch();
   }, [dispatch, page]);
   const loadMore = () => {
     setPage(page + 1);
@@ -26,9 +36,9 @@ function ItemProduct() {
         {adverts.map(advert => (
           <CardProduct key={advert.id} advert={advert} />
         ))}
-        {/* <Link to={CATALOG_ROUTE}>sssssssssssssss</Link> */}
+
       </ul>
-      <button onClick={loadMore}>Load more</button>
+      {showBtn && <BtnLoadMore loadMore={loadMore} />}
     </>
   );
 }

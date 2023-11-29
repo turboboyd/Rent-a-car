@@ -1,0 +1,20 @@
+.btn {
+  display: block;
+  color: var(--blue);
+  font-family: Manrope;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration-line: underline;
+  border: none;
+  background: transparent;
+  margin: 0 auto;
+  transition: color 0.3s;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+  color: var(--accent-color);
+}
