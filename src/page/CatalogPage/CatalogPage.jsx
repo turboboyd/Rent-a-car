@@ -1,5 +1,11 @@
+import ItemProduct from 'components/ItemProduct/ItemProduct';
 
-
-const CatalogPage = () => { }
+const CatalogPage = () => {
+  return (
+    <>
+      <ItemProduct />
+    </>
+  );
+};
 
 export default CatalogPage;
