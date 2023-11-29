@@ -35,20 +35,18 @@ function CardProduct({ advert }) {
     model,
     year,
     type,
-    description,
-    fuelConsumption,
-    engineSize,
-    accessories,
+
     functionalities,
     rentalPrice,
     rentalCompany,
     address,
-    rentalConditions,
+
     mileage,
   } = advert;
 
   const formatAddress = formatAddressFunc(address);
-  const totalLength = formatAddress[1].length + formatAddress[2].length + rentalCompany.length;
+  const totalLength =
+    formatAddress[1].length + formatAddress[2].length + rentalCompany.length;
 
   return (
     <li className={css.card}>

@@ -1,5 +1,5 @@
-import { Suspense, useState } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Suspense} from 'react';
+import { Outlet} from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import Container from 'components/Container/Container';
 import Section from 'components/Section/Section';
