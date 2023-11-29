@@ -1,5 +1,15 @@
+
+import ItemProduct from 'components/ItemProduct/ItemProduct';
+
+
 const Homepage = () => {
-    <div>HomePage</div>;
+
+
+  return (
+    <div>
+      <ItemProduct/>
+    </div>
+  );
 };
 
 export default Homepage;
