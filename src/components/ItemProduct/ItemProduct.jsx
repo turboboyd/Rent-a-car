@@ -1,44 +1,31 @@
 import React from 'react';
-import { fetchAdverts } from 'redux/advertActions';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import CardProduct from 'components/CardProduct/CardProduct';
 import css from './ItemProduct.module.css';
-import { useDispatch } from 'react-redux';
-
 import useAdvert from 'hooks/useAdvert';
 import BtnLoadMore from 'components/Button/BtnLoadMore';
+import BasicModal from 'components/Modal/BasicModal';
+import ModalCardAuto from 'components/Modal/ModalCardAuto';
+import useFetchAdverts from '../../hooks/useFetchAdverts';
+import useModal from 'hooks/useModal';
 
 function ItemProduct() {
-  const [page, setPage] = useState(1);
-  const [showBtn, setShowBtn] = useState(true);
-  const dispatch = useDispatch();
+  const { showBtn, loadMore } = useFetchAdverts();
   const { adverts } = useAdvert();
+  const { isModal, isModalOpen } = useModal();
 
-  useEffect(() => {
-    const fetch = async () => {
-      const responseLength = await dispatch(fetchAdverts(page));
-
-      // Если длина ответа меньше 12, скрываем кнопку "Загрузить еще"
-      if (responseLength < 12) {
-        setShowBtn(false);
-      }
-    };
-
-    fetch();
-  }, [dispatch, page]);
-  const loadMore = () => {
-    setPage(page + 1);
-  };
   return (
     <>
       <ul className={css.item}>
         {adverts.map(advert => (
-          <CardProduct key={advert.id} advert={advert} />
+          <CardProduct key={advert.id} advert={advert} isModal={isModal} />
         ))}
-
       </ul>
       {showBtn && <BtnLoadMore loadMore={loadMore} />}
+      {isModalOpen && (
+        <BasicModal isModal={isModal}>
+          <ModalCardAuto />
+        </BasicModal>
+      )}
     </>
   );
 }

@@ -2,23 +2,23 @@ import {
   GET_ADVERTS_PENDING,
   GET_ADVERTS_SUCCESS,
   GET_ADVERTS_FAIL,
+  ADD_FAVOURITE_ADVERT,
+  REMOVE_FAVOURITE_ADVERT,
 } from './advertTypes';
 
 const initialState = {
   adverts: [],
+  favouriteAdverts: [],
   isLoading: false,
   status: null,
   error: null,
 };
-
-
 
 const loadingState = (state, action) => ({
   ...state,
   loading: true,
   error: null,
 });
-
 
 const errorState = (state, action) => ({
   ...state,
@@ -30,10 +30,21 @@ const successState = (state, action) => ({
   ...state,
   loading: false,
   error: null,
-  adverts: [...state.adverts, ...action.payload],
+  adverts: [...action.payload],
+  // adverts: [...state.adverts, ...action.payload],
 });
 
+const addFavouriteAdvert = (state, action) => ({
+  ...state,
+  favouriteAdverts: [...state.favouriteAdverts, action.payload],
+});
 
+const removeFavouriteAdvert = (state, action) => ({
+  ...state,
+  favouriteAdverts: state.favouriteAdverts.filter(
+    advert => advert.id !== action.payload.id
+  ),
+});
 
 const advertsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -43,6 +54,10 @@ const advertsReducer = (state = initialState, action) => {
       return successState(state, action);
     case GET_ADVERTS_FAIL:
       return errorState(state, action);
+    case ADD_FAVOURITE_ADVERT:
+      return addFavouriteAdvert(state, action);
+    case REMOVE_FAVOURITE_ADVERT:
+      return removeFavouriteAdvert(state, action);
     default:
       return state;
   }

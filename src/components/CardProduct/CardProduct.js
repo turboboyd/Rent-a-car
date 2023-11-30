@@ -1,79 +1,68 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import css from './CardProduct.module.css';
 import imgDef from 'images/auto.jpg';
-function truncateString(str, maxLength, maxWords) {
-  const words = str.split(' ');
-  let truncated = '';
-
-  for (let i = 0; i < maxWords && i < words.length; i++) {
-    truncated += words[i] + ' ';
-  }
-
-  return truncated.trim().substring(0, maxLength);
-}
-
-function formatMileage(mileage) {
-  return mileage
-    .toString()
-    .split('')
-    .reverse()
-    .join('')
-    .replace(/(\d{3})/g, '$1,')
-    .split('')
-    .reverse()
-    .join('');
-}
-
-function formatAddressFunc(address) {
-  return address.split(', ');
-}
+import BasicModal from 'components/Modal/BasicModal';
+import { useNavigate } from 'react-router-dom';
+import ModalCardAuto from 'components/Modal/ModalCardAuto';
+import IconRender from 'components/IconRender/IconRender';
+import { useDispatch } from 'react-redux';
+import { addFavouriteAdvert, removeFavouriteAdvert } from 'redux/advertActions';
+import CardDetails from 'components/Card/CardDetalis/CardDetails';
+// import useAdvert from 'hooks/useAdvert';
 
 function CardProduct({ advert }) {
-  const {
-    img,
-    make,
-    model,
-    year,
-    type,
+  const { id,img, make } = advert;
+  const dispatch = useDispatch();
+  // const { favouriteAdverts } = useAdvert();
+  const [isFavourite, setIsFavourite] = useState(false);
 
-    functionalities,
-    rentalPrice,
-    rentalCompany,
-    address,
+  // useEffect(() => {
 
-    mileage,
-  } = advert;
+  //    setIsFavourite(favouriteAdverts.some(favAdvert => favAdvert.id === id));
+  // }, [favouriteAdverts, id]);
 
-  const formatAddress = formatAddressFunc(address);
-  const totalLength =
-    formatAddress[1].length + formatAddress[2].length + rentalCompany.length;
+  const handleAddToFavourites = useCallback(() => {
+    if (isFavourite) {
+      dispatch(removeFavouriteAdvert(advert));
+    } else {
+      dispatch(addFavouriteAdvert(advert));
+    }
+    setIsFavourite(!isFavourite);
+  }, [isFavourite, advert, dispatch]);
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const isModal = () => {
+    navigate(`?id=${id}`);
+  };
 
   return (
-    <li className={css.card}>
-      <img className={css.img} src={img || imgDef} alt={make} loading="lazy" />
-      <div className={css.title_wrap}>
-        <h2 className={css.title}>
-          {make} <span className={css.title_accent}>{model}</span>, {year}
-        </h2>
-        <p className={css.title}>{rentalPrice}</p>
-      </div>
-      <div className={css.wrap_text}>
-        <p className={css.text}>{formatAddress[1]}</p>
-        <p className={css.text}>{formatAddress[2]}</p>
-        <p className={css.text}>{rentalCompany}</p>
-        {totalLength < 38 && <p className={css.text}>Premium</p>}
-        <br />
-        <p className={css.text}>{type}</p>
-        <p className={css.text}>{model}</p>
-        <p className={css.text}>{formatMileage(mileage)}</p>
-        {functionalities.length > 0 && (
-          <p className={css.text}>
-            {truncateString(functionalities[0], 30, 3)}
-          </p>
-        )}
-      </div>
-      <button className={css.btn}>Learn more</button>
-    </li>
+    <>
+      <li className={css.card}>
+        <IconRender
+          className={isFavourite ? `${css.icon}  ${css.icon_active}` : css.icon}
+          iconId="heart"
+          onClick={handleAddToFavourites}
+        />
+        <img
+          className={css.img}
+          src={img || imgDef}
+          alt={make}
+          loading="lazy"
+        />
+        <CardDetails advert={advert} />
+        <button className={css.btn} onClick={isModal}>
+          Learn more
+        </button>
+      </li>
+      {/* {isModalOpen && (
+        <BasicModal isModal={isModal}>
+          <ModalCardAuto />
+        </BasicModal>
+      )} */}
+    </>
   );
 }
 

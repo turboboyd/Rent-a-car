@@ -6,3 +6,8 @@ export const fetchAdvertsApi = async (page = 1, pageSize = 12) => {
   const response = await axios.get(`?page=${page}&limit=${pageSize}`);
   return response;
 };
+
+export const fetchAdvertsIdApi = async id => {
+  const response = await axios.get(`/${id}`);
+  return response;
+};
