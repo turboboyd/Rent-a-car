@@ -3,12 +3,13 @@ import {
   GET_ADVERTS_PENDING,
   GET_ADVERTS_SUCCESS,
   GET_ADVERTS_FAIL,
+  GET_ADVERT_ONE_SUCCESS,
+  ADD_FAVOURITE_ADVERT,
+  REMOVE_FAVOURITE_ADVERT,
 } from './advertTypes';
-import { fetchAdvertsApi } from './API';
+import { fetchAdvertsApi, fetchAdvertsIdApi } from './API';
 
 axios.defaults.baseURL = 'https://6566535deb8bb4b70ef32d21.mockapi.io/Advert';
-
-
 
 export const getAdvertsPending = () => ({
   type: GET_ADVERTS_PENDING,
@@ -24,22 +25,18 @@ export const getAdvertsFail = error => ({
   payload: error,
 });
 
+export const getAdvertOneSuccess = () => ({
+  type: GET_ADVERT_ONE_SUCCESS,
+});
+
+
 export const fetchAdverts = (page = 1, pageSize = 12) => {
-  return async (dispatch) => {
+  return async dispatch => {
     dispatch(getAdvertsPending());
     try {
       const response = await fetchAdvertsApi(page, pageSize);
-      
 
-      dispatch(
-        getAdvertsSuccess(response.data)
-      );
-      // const currentAdverts = getState().adverts;
-      // console.log('currentAdverts: ', currentAdverts);
-      // const uniqueAdverts = getUniqueAdverts(currentAdverts, response.data);
-      // console.log('uniqueAdverts: ', uniqueAdverts);
-
-      // dispatch(getAdvertsSuccess(response.data));
+      dispatch(getAdvertsSuccess(response.data));
 
       return response.data.length;
     } catch (error) {
@@ -49,17 +46,28 @@ export const fetchAdverts = (page = 1, pageSize = 12) => {
 };
 
 
+export const fetchAdvertsOne = (id) => {
+  return async dispatch => {
+    dispatch(getAdvertsPending());
+    try {
+      const response = await fetchAdvertsIdApi(id);
+      console.log('response: ', response);
 
-// function getUniqueAdverts(oldAdverts, newAdverts) {
-//   // Объединить старые и новые объявления
-//   const allAdverts = [...oldAdverts, ...newAdverts];
+    dispatch(getAdvertOneSuccess());
 
-//   // Удалить дубликаты
-//   const uniqueAdverts = Array.from(new Set(allAdverts.map(a => a.id))).map(
-//     id => {
-//       return allAdverts.find(a => a.id === id);
-//     }
-//   );
+      return response.data;
+    } catch (error) {
+      dispatch(getAdvertsFail(error));
+    }
+  };
+};
 
-//   return uniqueAdverts;
-// }
+export const addFavouriteAdvert = advert => ({
+  type: ADD_FAVOURITE_ADVERT,
+  payload: advert,
+});
+
+export const removeFavouriteAdvert = advert => ({
+  type: REMOVE_FAVOURITE_ADVERT,
+  payload: advert,
+});

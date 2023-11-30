@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-// import PropTypes from 'prop-types';
-import css from './Modal.module.css';
+import css from './BasicModal.module.css';
+import CloseButton from 'components/Button/CloseButton/CloseButton';
 
 const modalRoot = document.querySelector('#modal-root');
 
-function Modal({ isModal }) {
+function BasicModal({ isModal, children }) {
   useEffect(() => {
+    document.documentElement.style.overflow = 'hidden';
     document.addEventListener('keydown', handleKeyDown);
     return () => {
+      document.documentElement.style.overflow = '';
       document.removeEventListener('keydown', handleKeyDown);
     };
   });
@@ -25,18 +27,15 @@ function Modal({ isModal }) {
     }
   };
 
-  // const { imageUrl, alt } = props;
   return createPortal(
-    <div className={css.Overlay} onClick={isModal}>
-      <div className={css.modal}>sss</div>
+    <div className={css.Overlay} onClick={handleOverlayClick}>
+      <div className={css.modal}>
+        <CloseButton isModal={isModal} />
+        {children}
+      </div>
     </div>,
-    // <div className={css.Overlay} onClick={onClose}>
-    //   <div className={css.Modal}>
-    //     <img className={css.imageUrl} src={props.imageUrl} alt={props.alt} />
-    //   </div>
-    // </div>,
     modalRoot
   );
 }
 
-export default Modal;
+export default BasicModal;

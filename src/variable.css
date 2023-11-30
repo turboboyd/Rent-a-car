@@ -1,7 +1,9 @@
 :root{
     --White: #fff;
+    --background-modal: #F3F3F2;
     --blue: #3470FF;
     --accent-color: #0B44CD;
     --border-radius: 12px;
     --overlay-background: rgba(18, 20, 23, 0.50);
+    --black-color: #121417;
 }
