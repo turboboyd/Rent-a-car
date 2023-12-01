@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import {
   GET_ADVERTS_PENDING,
   GET_ADVERTS_SUCCESS,
@@ -6,10 +6,10 @@ import {
   GET_ADVERT_ONE_SUCCESS,
   ADD_FAVOURITE_ADVERT,
   REMOVE_FAVOURITE_ADVERT,
+  GET_ADVERTS_FILTER_SUCCESS,
 } from './advertTypes';
 import { fetchAdvertsApi, fetchAdvertsIdApi } from './API';
 
-axios.defaults.baseURL = 'https://6566535deb8bb4b70ef32d21.mockapi.io/Advert';
 
 export const getAdvertsPending = () => ({
   type: GET_ADVERTS_PENDING,
@@ -29,13 +29,33 @@ export const getAdvertOneSuccess = () => ({
   type: GET_ADVERT_ONE_SUCCESS,
 });
 
+export const getAdvertsFilterSuccess = adverts => ({
+  type: GET_ADVERTS_FILTER_SUCCESS,
+  payload: adverts,
+});
 
-export const fetchAdverts = (page = 1, pageSize = 12) => {
+
+export const fetchAdverts = (page, limit, make, rentalPrice) => {
+
   return async dispatch => {
     dispatch(getAdvertsPending());
     try {
-      const response = await fetchAdvertsApi(page, pageSize);
+      const response = await fetchAdvertsApi(page, limit, make);
+      console.log('response: ', response);
 
+      if (rentalPrice) {
+        console.log('пришла цена' );
+        // Convert rentalPrice to a number for comparison
+        // console.log(Number(rentalPrice))
+        // Filter the adverts based on rentalPrice
+        const filteredData = response.data.filter(
+          advert =>
+            Number(advert.rentalPrice.replace('$', '')) === Number(rentalPrice)
+        );
+        console.log('filteredData: ', filteredData);
+        dispatch(getAdvertsFilterSuccess(filteredData));
+        return;
+      }
       dispatch(getAdvertsSuccess(response.data));
 
       return response.data.length;
@@ -45,15 +65,14 @@ export const fetchAdverts = (page = 1, pageSize = 12) => {
   };
 };
 
-
-export const fetchAdvertsOne = (id) => {
+export const fetchAdvertsOne = id => {
   return async dispatch => {
     dispatch(getAdvertsPending());
     try {
       const response = await fetchAdvertsIdApi(id);
       console.log('response: ', response);
 
-    dispatch(getAdvertOneSuccess());
+      dispatch(getAdvertOneSuccess());
 
       return response.data;
     } catch (error) {
