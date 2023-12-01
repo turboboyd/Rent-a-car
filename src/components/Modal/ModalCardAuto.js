@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
 // import PropTypes from 'prop-types';
 import css from './ModalCardAuto.module.css';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { fetchAdvertsOne } from 'redux/advertActions';
 import { useDispatch } from 'react-redux';
 import addressParts from 'utils/addressParts';
@@ -20,7 +19,6 @@ function ModalCardAuto() {
     if (id) {
       const fetchData = async () => {
         const result = await dispatch(fetchAdvertsOne(id));
-        console.log('result: ', result);
         setData(result);
         const { city, country } = addressParts(result.address);
         setCity(city);
