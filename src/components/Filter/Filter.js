@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import makes from './makes.json';
 import { useDispatch } from 'react-redux';
-import { fetchAdverts } from 'redux/advertActions';
+import { fetchAdverts, filterAdverts } from 'redux/advertActions';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const Filter = () => {
   };
 
   const handlePriceChange = event => {
+    console.log('event: ', event);
     setSelectedPrice(event.target.value);
   };
 
@@ -25,17 +26,28 @@ const Filter = () => {
   };
 
   const handleSearch = () => {
+    if (
+      selectedMake === '' &&
+      selectedPrice === '' &&
+      mileageRange.min === '' &&
+      mileageRange.max === ''
+    ) {
+      return dispatch(fetchAdverts());
+    }
     const make = selectedMake;
     const rentalPrice = selectedPrice;
     const mileage = mileageRange;
-    const page = 1;
-    const limit = 12;
-    dispatch(fetchAdverts(page, limit, make, rentalPrice, mileage));
+    dispatch(filterAdverts(make, rentalPrice, mileage));
   };
-
+  const handleReset = () => {
+    setSelectedMake('');
+    setSelectedPrice('');
+    setMileageRange({ min: '', max: '' });
+    return dispatch(fetchAdverts());
+  };
   return (
     <div>
-      <label htmlFor="carMake">Виберіть марку автомобіля:</label>
+      <label htmlFor="carMake">Car brand</label>
       <select id="carMake" value={selectedMake} onChange={handleMakeChange}>
         <option value="">Усі марки</option>
         {makes.map((make, index) => (
@@ -45,24 +57,25 @@ const Filter = () => {
         ))}
       </select>
 
-      <label htmlFor="priceRange">Виберіть ціновий діапазон:</label>
+      <label htmlFor="priceRange">Price/ 1 hour</label>
       <select
         id="priceRange"
         value={selectedPrice}
         onChange={handlePriceChange}
       >
         <option value="">Усі ціни</option>
-        {[...Array(30)].map((_, index) => (
-          <option key={index} value={index * 10}>
-            {index * 10}$
+        {[...Array(30)].map((_, i) => (
+          <option key={i} value={(i + 1) * 10}>
+            {(i + 1) * 10}$
           </option>
         ))}
       </select>
 
-      <label htmlFor="mileageMin">Мінімальний пробіг:</label>
+      <label htmlFor="mileageMin">Сar mileage / km</label>
       <input
         id="mileageMin"
         name="min"
+        type="number"
         value={mileageRange.min}
         onChange={handleMileageChange}
       />
@@ -71,11 +84,17 @@ const Filter = () => {
       <input
         id="mileageMax"
         name="max"
+        type="number"
         value={mileageRange.max}
         onChange={handleMileageChange}
       />
 
-      <button onClick={handleSearch}>Search</button>
+      <button type="button" onClick={handleSearch}>
+        Search
+      </button>
+      <button type="button" onClick={handleReset}>
+        Reser
+      </button>
     </div>
   );
 };

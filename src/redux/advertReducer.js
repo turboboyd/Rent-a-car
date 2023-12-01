@@ -47,7 +47,7 @@ const removeFavouriteAdvert = (state, action) => ({
   ),
 });
 
-const successAAdvert_Filter = (state, action) => ({
+const successAdvert_Filter = (state, action) => ({
   ...state,
   adverts: action.payload,
 
@@ -68,7 +68,7 @@ const advertsReducer = (state = initialState, action) => {
     case REMOVE_FAVOURITE_ADVERT:
       return removeFavouriteAdvert(state, action);
     case GET_ADVERTS_FILTER_SUCCESS:
-      return successAAdvert_Filter(state, action);
+      return successAdvert_Filter(state, action);
     default:
       return state;
   }
