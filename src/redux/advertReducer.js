@@ -4,6 +4,7 @@ import {
   GET_ADVERTS_FAIL,
   ADD_FAVOURITE_ADVERT,
   REMOVE_FAVOURITE_ADVERT,
+  GET_ADVERTS_FILTER_SUCCESS,
 } from './advertTypes';
 
 const initialState = {
@@ -46,6 +47,14 @@ const removeFavouriteAdvert = (state, action) => ({
   ),
 });
 
+const successAdvert_Filter = (state, action) => ({
+  ...state,
+  adverts: action.payload,
+
+  loading: false,
+  error: null,
+});
+
 const advertsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ADVERTS_PENDING:
@@ -58,6 +67,8 @@ const advertsReducer = (state = initialState, action) => {
       return addFavouriteAdvert(state, action);
     case REMOVE_FAVOURITE_ADVERT:
       return removeFavouriteAdvert(state, action);
+    case GET_ADVERTS_FILTER_SUCCESS:
+      return successAdvert_Filter(state, action);
     default:
       return state;
   }
