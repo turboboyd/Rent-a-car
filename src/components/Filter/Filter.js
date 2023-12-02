@@ -2,26 +2,47 @@ import React, { useEffect, useState } from 'react';
 import makes from './makes.json';
 import { useDispatch } from 'react-redux';
 import { fetchAdverts, filterAdverts } from 'redux/advertActions';
+import css from './Filter.module.css';
+import Select from 'react-select';
+import { carStyles, priceStyles } from './SelectStyles';
+import MileageInput from './MilegeInput/MileageInput';
 
 const Filter = () => {
   const dispatch = useDispatch();
   const [selectedMake, setSelectedMake] = useState('');
   const [selectedPrice, setSelectedPrice] = useState('');
   const [mileageRange, setMileageRange] = useState({ min: '', max: '' });
+  const optionsCar = [
+    { label: 'All', value: '' },
+    ...makes.map(make => ({ label: make, value: make })),
+  ];
+const priceOptions = [
+  { label: 'All', value: '' },
+  ...[...Array(30)].map((_, i) => ({
+    label: `${(i + 1) * 10}`,
+    value: (i + 1) * 10,
+  })),
+];
 
   const handleMakeChange = event => {
-    setSelectedMake(event.target.value);
+    console.log('event: ', event);
+    setSelectedMake(event.value);
   };
 
   const handlePriceChange = event => {
-    console.log('event: ', event);
-    setSelectedPrice(event.target.value);
+    console.log('event: ', event.value);
+    setSelectedPrice(event.value);
   };
 
   const handleMileageChange = event => {
+    const { name, value } = event.target;
+    if (value < 0) {
+      console.error('Mileage cannot be negative');
+      return;
+    }
     setMileageRange({
       ...mileageRange,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
   };
 
@@ -46,54 +67,60 @@ const Filter = () => {
     return dispatch(fetchAdverts());
   };
   return (
-    <div>
-      <label htmlFor="carMake">Car brand</label>
-      <select id="carMake" value={selectedMake} onChange={handleMakeChange}>
-        <option value="">Усі марки</option>
-        {makes.map((make, index) => (
-          <option key={index} value={make}>
-            {make}
-          </option>
-        ))}
-      </select>
+    <div className={css.filter}>
+      <div className={css.wrap_label}>
+        <label className={css.label} htmlFor="carMake">
+          Car brand
+        </label>
+        <Select
+          inputId="make"
+          options={optionsCar}
+          styles={carStyles}
+          onChange={handleMakeChange}
+          isSearchable={true}
+          closeMenuOnSelect={false}
+          placeholder="Enter the text"
+        />
+      </div>
+      <div className={css.wrap_label}>
+        <label className={css.label} htmlFor="priceRange">
+          Price/ 1 hour
+        </label>
+        <Select
+          inputId="priceRange"
+          options={priceOptions}
+          styles={priceStyles}
+          onChange={handlePriceChange}
+          isSearchable={true}
+          closeMenuOnSelect={false}
+          placeholder="to"
+        />
+      </div>
+      <div className={css.wrap_label}>
+        <label className={css.label} htmlFor="mileageMin">
+          Car mileage / km
+        </label>
+        <div className={css.wrap_mileage}>
+          <MileageInput
+            className={css.mileageMin}
+            name="min"
+            value={mileageRange.min}
+            onChange={handleMileageChange}
+          />
+          <MileageInput
+            className={css.mileageMax}
+            name="max"
+            value={mileageRange.max}
+            onChange={handleMileageChange}
+          />
+        </div>
+      </div>
 
-      <label htmlFor="priceRange">Price/ 1 hour</label>
-      <select
-        id="priceRange"
-        value={selectedPrice}
-        onChange={handlePriceChange}
-      >
-        <option value="">Усі ціни</option>
-        {[...Array(30)].map((_, i) => (
-          <option key={i} value={(i + 1) * 10}>
-            {(i + 1) * 10}$
-          </option>
-        ))}
-      </select>
-
-      <label htmlFor="mileageMin">Сar mileage / km</label>
-      <input
-        id="mileageMin"
-        name="min"
-        type="number"
-        value={mileageRange.min}
-        onChange={handleMileageChange}
-      />
-
-      <label htmlFor="mileageMax">Максимальний пробіг:</label>
-      <input
-        id="mileageMax"
-        name="max"
-        type="number"
-        value={mileageRange.max}
-        onChange={handleMileageChange}
-      />
-
-      <button type="button" onClick={handleSearch}>
+      <button className={css.btn} type="button" onClick={handleSearch}>
         Search
       </button>
-      <button type="button" onClick={handleReset}>
-        Reser
+      <button className={css.btn} type="button" onClick={handleReset}>
+        Reset
       </button>
     </div>
   );

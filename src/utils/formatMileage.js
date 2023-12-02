@@ -1,14 +1,9 @@
 function formatMileage(mileage) {
   return mileage
     .toString()
-    .split('')
-    .reverse()
-    .join('')
-    .replace(/(\d{3})/g, '$1,')
-    .split('')
-    .reverse()
-    .join('');
+    .replace(/\D/g, '')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-
 export default formatMileage;
+
