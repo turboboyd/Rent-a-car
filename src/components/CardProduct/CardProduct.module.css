@@ -55,8 +55,6 @@
 }
 
 .icon:hover, .icon:focus{
-  stroke: var(--blue);
-  fill: var(--blue);
   scale: 1.2;
 }
 

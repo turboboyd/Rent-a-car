@@ -1,33 +1,45 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import css from './CardProduct.module.css';
 import imgDef from 'images/auto.jpg';
-import BasicModal from 'components/Modal/BasicModal';
+
 import { useNavigate } from 'react-router-dom';
-import ModalCardAuto from 'components/Modal/ModalCardAuto';
+
 import IconRender from 'components/IconRender/IconRender';
 import { useDispatch } from 'react-redux';
 import { addFavouriteAdvert, removeFavouriteAdvert } from 'redux/advertActions';
 import CardDetails from 'components/Card/CardDetalis/CardDetails';
+import useAdvert from 'hooks/useAdvert';
 // import useAdvert from 'hooks/useAdvert';
 
 function CardProduct({ advert }) {
-  const { id,img, make } = advert;
+  const { id, img, make } = advert;
   const dispatch = useDispatch();
-  // const { favouriteAdverts } = useAdvert();
+
   const [isFavourite, setIsFavourite] = useState(false);
-
-
-
+  const { favouriteAdverts } = useAdvert();
+useEffect(() => {
+  const isAdvertFavourite = favouriteAdverts.some(
+    favAdvert => favAdvert.id === advert.id
+  );
+  setIsFavourite(isAdvertFavourite);
+}, [advert, favouriteAdverts, isFavourite]);
+  
+  
+  
   const handleAddToFavourites = useCallback(() => {
-    if (isFavourite) {
+    const isAdvertFavourite = favouriteAdverts.some(
+      favAdvert => favAdvert.id === advert.id
+    );
+
+    if (isAdvertFavourite) {
       dispatch(removeFavouriteAdvert(advert));
+      return setIsFavourite(false);
     } else {
       dispatch(addFavouriteAdvert(advert));
+        setIsFavourite(true);
     }
-    setIsFavourite(!isFavourite);
-  }, [isFavourite, advert, dispatch]);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  }, [advert, dispatch, favouriteAdverts]);
 
   const navigate = useNavigate();
 
@@ -54,11 +66,6 @@ function CardProduct({ advert }) {
           Learn more
         </button>
       </li>
-      {/* {isModalOpen && (
-        <BasicModal isModal={isModal}>
-          <ModalCardAuto />
-        </BasicModal>
-      )} */}
     </>
   );
 }

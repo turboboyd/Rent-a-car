@@ -129,7 +129,7 @@ export const filterAdverts = (make, rentalPrice, mileageRange) => {
         return [...acc, advert];
       }, []);
 
-      console.log('filteredData: ', filteredData);
+
       dispatch(getAdvertsFilterSuccess(filteredData));
       return filteredData.length;
     } catch (error) {
