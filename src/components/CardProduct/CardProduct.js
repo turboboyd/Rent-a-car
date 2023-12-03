@@ -16,10 +16,7 @@ function CardProduct({ advert }) {
   // const { favouriteAdverts } = useAdvert();
   const [isFavourite, setIsFavourite] = useState(false);
 
-  // useEffect(() => {
 
-  //    setIsFavourite(favouriteAdverts.some(favAdvert => favAdvert.id === id));
-  // }, [favouriteAdverts, id]);
 
   const handleAddToFavourites = useCallback(() => {
     if (isFavourite) {
