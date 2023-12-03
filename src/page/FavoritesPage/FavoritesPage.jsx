@@ -1,5 +1,11 @@
+import ItemProduct from 'components/ItemProduct/ItemProduct';
+
 const FavoritesPage = () => {
-      <div>sfsafsaf</div>;
+  return (
+    <>
+      <ItemProduct />
+    </>
+  );
 };
 
 export default FavoritesPage;

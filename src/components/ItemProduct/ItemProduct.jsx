@@ -7,18 +7,24 @@ import BasicModal from 'components/Modal/BasicModal';
 import ModalCardAuto from 'components/Modal/ModalCardAuto';
 import useFetchAdverts from '../../hooks/useFetchAdverts';
 import useModal from 'hooks/useModal';
+import { FAVORITES_ROUTE } from 'utils/const';
 
 function ItemProduct() {
   const { showBtn, loadMore } = useFetchAdverts();
-  const { adverts } = useAdvert();
+  const { adverts, favouriteAdverts } = useAdvert();
   const { isModal, isModalOpen } = useModal();
+  const isFavoritesRoute = window.location.pathname.endsWith(FAVORITES_ROUTE);
 
   return (
     <>
       <ul className={css.item}>
-        {adverts.map(advert => (
-          <CardProduct key={advert.id} advert={advert} isModal={isModal} />
-        ))}
+        {isFavoritesRoute
+          ? favouriteAdverts.map(advert => (
+              <CardProduct key={advert.id} advert={advert} isModal={isModal} />
+            ))
+          : adverts.map(advert => (
+              <CardProduct key={advert.id} advert={advert} isModal={isModal} />
+            ))}
       </ul>
       {showBtn && <BtnLoadMore loadMore={loadMore} />}
       {isModalOpen && (
