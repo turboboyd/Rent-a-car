@@ -18,11 +18,11 @@
   background-color: var(--accent-color);
 }
 
-h1{
+.title{
     margin-bottom: 24px;
 }
 
-p{
+.text{
     width: 620px;
     margin-bottom: 24px;
 }
