@@ -9,6 +9,7 @@ import {
 
 const initialState = {
   adverts: [],
+  filter:[],
   favouriteAdverts: [],
   isLoading: false,
   status: null,
