@@ -37,7 +37,6 @@ export const getAdvertsFilterSuccess = adverts => ({
 });
 
 export const fetchAdverts = (page, limit, make, rentalPrice) => {
-  console.log('page: ', page);
 
   return async dispatch => {
     if (page === 1) {
