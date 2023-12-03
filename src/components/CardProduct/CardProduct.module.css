@@ -36,7 +36,6 @@
 }
 
 .btn:hover,
-.btn:active,
 .btn:focus {
   background-color: var(--accent-color);
 }
