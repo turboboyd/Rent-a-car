@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import {Navigate, Routes, Route } from 'react-router-dom';
 
 import Layout from './Layout/Layout';
 import publicRoutes from './Routs';
@@ -12,6 +12,7 @@ export const App = () => {
             <Route key={path} path={path} element={Element} exact />
           ))}
         </Route>
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );
