@@ -1,0 +1,28 @@
+.link {
+    display: inline-block;
+  padding: 14px 18px;
+  border-radius: var(--border-radius);
+  background-color: var(--blue);
+
+  color: var(--White, #fff);
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.43;
+
+  transition: background-color 0.3s;
+}
+
+.link:hover,
+.link:focus {
+  background-color: var(--accent-color);
+}
+
+h1{
+    margin-bottom: 24px;
+}
+
+p{
+    width: 620px;
+    margin-bottom: 24px;
+}

@@ -53,8 +53,7 @@ const Filter = ({ setShowBtn }) => {
     ) {
       console.log('aaa');
       const fetch = async () => {
-        const responseLength = await dispatch(fetchAdverts());
-        console.log('responseLength: ', responseLength);
+        const responseLength = await dispatch(fetchAdverts(1));
         if (responseLength < 12) {
           setShowBtn(false);
         }
@@ -71,7 +70,7 @@ const Filter = ({ setShowBtn }) => {
 
     const fetch = async () => {
       const responseLength = await dispatch(
-        filterAdverts(make, rentalPrice, mileage)
+        filterAdverts(1, make, rentalPrice, mileage)
       );
       if (responseLength < 12) {
         setShowBtn(false);

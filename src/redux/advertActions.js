@@ -6,11 +6,15 @@ import {
   ADD_FAVOURITE_ADVERT,
   REMOVE_FAVOURITE_ADVERT,
   GET_ADVERTS_FILTER_SUCCESS,
+  GET_ADVERTS_RESET,
 } from './advertTypes';
 import { fetchAdvertsAllApi, fetchAdvertsApi, fetchAdvertsIdApi } from './API';
 
 export const getAdvertsPending = () => ({
   type: GET_ADVERTS_PENDING,
+});
+export const getAdvertsReset = () => ({
+  type: GET_ADVERTS_RESET,
 });
 
 export const getAdvertsSuccess = adverts => ({
@@ -33,9 +37,14 @@ export const getAdvertsFilterSuccess = adverts => ({
 });
 
 export const fetchAdverts = (page, limit, make, rentalPrice) => {
+  console.log('page: ', page);
 
   return async dispatch => {
-    dispatch(getAdvertsPending());
+    if (page === 1) {
+      dispatch(getAdvertsReset());
+    } else {
+      dispatch(getAdvertsPending());
+    }
     try {
       const response = await fetchAdvertsApi(page, limit, make);
 
@@ -91,10 +100,14 @@ export const removeFavouriteAdvert = advert => ({
 });
 
 
-export const filterAdverts = ( make, rentalPrice, mileageRange) => {
+export const filterAdverts = ( page ,make, rentalPrice, mileageRange) => {
   
   return async dispatch => {
-    dispatch(getAdvertsPending());
+       if (page === 1) {
+         dispatch(getAdvertsReset());
+       } else {
+         dispatch(getAdvertsPending());
+       }
     try {
 
       const response = await fetchAdvertsAllApi();
