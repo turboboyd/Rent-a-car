@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CATALOG_ROUTE } from 'utils/const';
-
+import css from './Homepage.module.css';
 
 const Homepage = () => {
 
@@ -13,7 +13,7 @@ const Homepage = () => {
         business trip, or just want the convenience of having a car at your
         disposal, we`ve got you covered.
       </p>
-      <Link to={CATALOG_ROUTE}>sssssssssssssss</Link>
+      <Link className={css.link} to={CATALOG_ROUTE}>Catalog</Link>
     </div>
   );
 };
