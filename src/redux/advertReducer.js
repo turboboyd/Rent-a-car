@@ -31,7 +31,8 @@ const successState = (state, action) => ({
   ...state,
   loading: false,
   error: null,
-  adverts: [...state.adverts, ...action.payload],
+  adverts: [...action.payload],
+  // adverts: [...state.adverts, ...action.payload],
 });
 
 const addFavouriteAdvert = (state, action) => ({

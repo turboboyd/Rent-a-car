@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import makes from './makes.json';
 import { useDispatch } from 'react-redux';
 import { fetchAdverts, filterAdverts } from 'redux/advertActions';
