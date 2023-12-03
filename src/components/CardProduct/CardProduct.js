@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { addFavouriteAdvert, removeFavouriteAdvert } from 'redux/advertActions';
 import CardDetails from 'components/Card/CardDetalis/CardDetails';
 import useAdvert from 'hooks/useAdvert';
-// import useAdvert from 'hooks/useAdvert';
 
 function CardProduct({ advert }) {
   const { id, img, make } = advert;
@@ -17,15 +16,13 @@ function CardProduct({ advert }) {
 
   const [isFavourite, setIsFavourite] = useState(false);
   const { favouriteAdverts } = useAdvert();
-useEffect(() => {
-  const isAdvertFavourite = favouriteAdverts.some(
-    favAdvert => favAdvert.id === advert.id
-  );
-  setIsFavourite(isAdvertFavourite);
-}, [advert, favouriteAdverts, isFavourite]);
-  
-  
-  
+  useEffect(() => {
+    const isAdvertFavourite = favouriteAdverts.some(
+      favAdvert => favAdvert.id === advert.id
+    );
+    setIsFavourite(isAdvertFavourite);
+  }, [advert, favouriteAdverts, isFavourite]);
+
   const handleAddToFavourites = useCallback(() => {
     const isAdvertFavourite = favouriteAdverts.some(
       favAdvert => favAdvert.id === advert.id
@@ -36,9 +33,8 @@ useEffect(() => {
       return setIsFavourite(false);
     } else {
       dispatch(addFavouriteAdvert(advert));
-        setIsFavourite(true);
+      setIsFavourite(true);
     }
-
   }, [advert, dispatch, favouriteAdverts]);
 
   const navigate = useNavigate();

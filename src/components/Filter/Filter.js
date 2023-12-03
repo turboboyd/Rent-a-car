@@ -25,12 +25,11 @@ const priceOptions = [
 ];
 
   const handleMakeChange = event => {
-    console.log('event: ', event);
     setSelectedMake(event.value);
   };
 
   const handlePriceChange = event => {
-    console.log('event: ', event.value);
+
     setSelectedPrice(event.value);
   };
 

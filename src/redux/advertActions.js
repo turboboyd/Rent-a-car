@@ -33,18 +33,15 @@ export const getAdvertsFilterSuccess = adverts => ({
 });
 
 export const fetchAdverts = (page, limit, make, rentalPrice) => {
-  console.log('rentalPrice: ', rentalPrice);
-  console.log('page: ', page);
-  console.log('limit: ', limit);
-  console.log('make1: ', make);
+
   return async dispatch => {
     dispatch(getAdvertsPending());
     try {
       const response = await fetchAdvertsApi(page, limit, make);
-      console.log('response: ', response);
+
 
       if (rentalPrice) {
-        console.log('пришла цена');
+
 
         const rentalPriceNumber = Number(rentalPrice);
         const filteredData = response.data.filter(advert => {
@@ -54,7 +51,7 @@ export const fetchAdverts = (page, limit, make, rentalPrice) => {
             advertPrice <= rentalPriceNumber + 1
           );
         });
-        console.log('filteredData: ', filteredData);
+
         dispatch(getAdvertsFilterSuccess(filteredData));
         return;
       }
@@ -72,7 +69,7 @@ export const fetchAdvertsOne = id => {
     dispatch(getAdvertsPending());
     try {
       const response = await fetchAdvertsIdApi(id);
-      console.log('response: ', response);
+
 
       dispatch(getAdvertOneSuccess());
 
@@ -99,7 +96,7 @@ export const filterAdverts = (make, rentalPrice, mileageRange) => {
     dispatch(getAdvertsPending());
     try {
       const response = await fetchAdvertsAllApi();
-      console.log('response: ', response);
+
 
       const filteredData = response.data.reduce((acc, advert) => {
         if (make && advert.make !== make) {
