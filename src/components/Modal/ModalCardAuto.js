@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
 import css from './ModalCardAuto.module.css';
 import { useLocation } from 'react-router-dom';
 import { fetchAdvertsOne } from 'redux/advertActions';
 import { useDispatch } from 'react-redux';
 import addressParts from 'utils/addressParts';
+
 
 function ModalCardAuto() {
   const location = useLocation();
@@ -40,6 +40,7 @@ function ModalCardAuto() {
           </h2>
 
           <div className={css.wrap_info}>
+            
             <div className={css.block_info}>
               <p className={css.text}>{city}</p>
               <p className={css.text}>{country}</p>

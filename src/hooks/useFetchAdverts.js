@@ -23,7 +23,7 @@ const useFetchAdverts = () => {
    const loadMore = () => {
     setPage(page + 1);
   };
-  return { showBtn, loadMore };
+  return { showBtn, loadMore, setShowBtn };
 };
 
 export default useFetchAdverts;

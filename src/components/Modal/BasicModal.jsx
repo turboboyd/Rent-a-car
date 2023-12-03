@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import css from './BasicModal.module.css';
 import CloseButton from 'components/Button/CloseButton/CloseButton';
+import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -39,3 +40,9 @@ function BasicModal({ isModal, children }) {
 }
 
 export default BasicModal;
+
+BasicModal.propTypes = {
+  isModal: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
+

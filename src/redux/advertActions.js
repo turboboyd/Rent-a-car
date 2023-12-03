@@ -91,12 +91,13 @@ export const removeFavouriteAdvert = advert => ({
 });
 
 
-export const filterAdverts = (make, rentalPrice, mileageRange) => {
+export const filterAdverts = ( make, rentalPrice, mileageRange) => {
+  
   return async dispatch => {
     dispatch(getAdvertsPending());
     try {
-      const response = await fetchAdvertsAllApi();
 
+      const response = await fetchAdvertsAllApi();
 
       const filteredData = response.data.reduce((acc, advert) => {
         if (make && advert.make !== make) {
@@ -125,7 +126,6 @@ export const filterAdverts = (make, rentalPrice, mileageRange) => {
 
         return [...acc, advert];
       }, []);
-
 
       dispatch(getAdvertsFilterSuccess(filteredData));
       return filteredData.length;

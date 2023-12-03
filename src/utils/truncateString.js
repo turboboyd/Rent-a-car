@@ -1,12 +1,17 @@
-function truncateString(str, maxLength, maxWords) {
-  const words = str.split(' ');
-  let truncated = '';
+const trimAndCapitalizeLastTwoWords= (arr)=> {
 
-  for (let i = 0; i < maxWords && i < words.length; i++) {
-    truncated += words[i] + ' ';
+
+  let words = arr[1].split(' ');
+  if (words.length < 2) {
+    return;
   }
 
-  return truncated.trim().substring(0, maxLength);
+  let lastTwoWords = words.slice(-2);
+  lastTwoWords = lastTwoWords.map(
+    word => word.charAt(0).toUpperCase() + word.slice(1)
+  );
+
+  return lastTwoWords.join(' ');
 }
 
-export default truncateString;
+export default trimAndCapitalizeLastTwoWords;

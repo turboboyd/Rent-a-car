@@ -11,7 +11,7 @@ const CloseButton = ({ isModal }) => {
 };
 
 CloseButton.propTypes = {
-  handleCloseModal: PropTypes.func.isRequired,
+  isModal: PropTypes.func.isRequired,
 };
 
 export default CloseButton;
