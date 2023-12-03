@@ -35,7 +35,6 @@ const Filter = ({ setShowBtn }) => {
   const handleMileageChange = event => {
     const { name, value } = event.target;
     if (value < 0) {
-      console.error('Mileage cannot be negative');
       return;
     }
     setMileageRange({
@@ -51,7 +50,6 @@ const Filter = ({ setShowBtn }) => {
       mileageRange.min === '' &&
       mileageRange.max === ''
     ) {
-      console.log('aaa');
       const fetch = async () => {
         const responseLength = await dispatch(fetchAdverts(1));
         if (responseLength < 12) {
