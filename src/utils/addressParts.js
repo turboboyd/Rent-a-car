@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function addressParts(address) {
   const formatAddress = address.split(', ');
   return {
@@ -7,3 +9,8 @@ function addressParts(address) {
 }
 
 export default addressParts;
+
+addressParts.propTypes = {
+  address: PropTypes.string.isRequired,
+};
+

@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import css from './CardProduct.module.css';
 import imgDef from 'images/auto.jpg';
-
 import { useNavigate } from 'react-router-dom';
-
 import IconRender from 'components/IconRender/IconRender';
 import { useDispatch } from 'react-redux';
 import { addFavouriteAdvert, removeFavouriteAdvert } from 'redux/advertActions';
 import CardDetails from 'components/Card/CardDetalis/CardDetails';
 import useAdvert from 'hooks/useAdvert';
+import PropTypes from 'prop-types';
 
 function CardProduct({ advert }) {
   const { id, img, make } = advert;
@@ -42,7 +41,7 @@ function CardProduct({ advert }) {
   const isModal = () => {
     navigate(`?id=${id}`);
   };
-
+  
   return (
     <>
       <li className={css.card}>
@@ -67,3 +66,10 @@ function CardProduct({ advert }) {
 }
 
 export default CardProduct;
+CardProduct.propTypes = {
+  advert: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    img: PropTypes.string,
+    make: PropTypes.string.isRequired,
+  }).isRequired,
+};

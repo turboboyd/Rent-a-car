@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { formatMileage } from 'utils';
+import PropTypes from 'prop-types';
 
 const MileageInput = ({ name, value, onChange, className }) => (
   <input
@@ -15,3 +15,10 @@ const MileageInput = ({ name, value, onChange, className }) => (
 );
 
 export default MileageInput;
+
+MileageInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};

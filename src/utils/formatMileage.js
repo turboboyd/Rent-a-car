@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function formatMileage(mileage) {
   return mileage
     .toString()
@@ -7,3 +9,6 @@ function formatMileage(mileage) {
 
 export default formatMileage;
 
+formatMileage.propTypes = {
+  mileage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+};

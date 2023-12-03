@@ -8,7 +8,6 @@
   color: #121417;
 
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
   line-height: 1.5;
 }
@@ -22,11 +21,30 @@
   gap: 4px 12px;
   margin-bottom: 28px;
 }
-
+.block_info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px 12px;
+}
 .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: rgba(18, 20, 23, 0.5);
   font-size: 12px;
-  font-style: normal;
   font-weight: 400;
   line-height: 1.5;
+}
+.text::after {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background-color: rgba(18, 20, 23, 0.1);
+  margin-left: 6px;
+}
+
+.text:last-child::after {
+  content: none;
 }

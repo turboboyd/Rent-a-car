@@ -14,7 +14,7 @@ export const fetchAdvertsApi = async (page = 1, limit = 12, make) => {
 };
 
 export const fetchAdvertsAllApi = async () => {
-  const response = await axios.get('/', {});
+  const response = await axios.get('/');
   return response;
 };
 
