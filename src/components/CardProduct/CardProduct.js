@@ -11,6 +11,9 @@ import PropTypes from 'prop-types';
 
 function CardProduct({ advert }) {
   const { id, img, make } = advert;
+  console.log('img: ', img);
+  const hasImg = !!img;
+  console.log('hasImg: ', hasImg);
   const dispatch = useDispatch();
 
   const [isFavourite, setIsFavourite] = useState(false);
